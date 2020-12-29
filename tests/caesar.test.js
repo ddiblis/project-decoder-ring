@@ -30,7 +30,7 @@ describe("caesar", () => {
   })
   it("Should maintain spaces and other nonalphabetic symbols in the message after decoding", () => {
     const actual = caesar("bpqa qa i amkzmb umaaiom!", 8, false)
-    const expected = "This is a secret message!"
+    const expected = "this is a secret message!"
     expect(actual).to.equal(expected)
   })
 })
