@@ -1,46 +1,29 @@
+function runShift(encodedASCII) {
+  var returnString;
+  if (encodedASCII < 97) {
+    returnString = encodedASCII + 26
+  }
+  else if (encodedASCII > 122) {
+    returnString = encodedASCII - 26
+  } else {
+    returnString = encodedASCII
+  }
+  return String.fromCharCode(returnString)
+}
+
 function caesar(word, shift, encode = true) {
   if (!shift || shift === 0 || shift > 25 || shift < -25){
     return false
   }
-  
-  const encodedString = []
-    
-  if (encode === true) {
-    // checks if char is a letter, if it is, encodes it into ASCII modifies the number as appropriate and returns the correspnding letter
-    word.split("").forEach(letter => {
-      if (letter.match(/[a-z]/i)) {
-        encodedASCII = letter.toLowerCase().charCodeAt() + shift
-        console.log(encodedASCII)
-        if (encodedASCII < 97) {
-          encodedASCII = encodedASCII + 26
-          encodedString.push(String.fromCharCode(encodedASCII))
-        }
-        else if (encodedASCII > 122) {
-          encodedASCII = encodedASCII - 26
-          encodedString.push(String.fromCharCode(encodedASCII))
-        } else {encodedString.push(String.fromCharCode(encodedASCII))
-          }
-        // if it's not a letter, return as is
-      } else {encodedString.push(letter)}
-    })
-
-  } else {
-    word.split("").forEach(letter => {
-  if (letter.match(/[a-z]/i)) {
-    encodedASCII = letter.toLowerCase().charCodeAt() - shift
-    if (encodedASCII > 122) {
-          encodedASCII = encodedASCII - 26
-          encodedString.push(String.fromCharCode(encodedASCII))
-        }
-    else if (encodedASCII < 97) {
-      encodedASCII = encodedASCII + 26
-      encodedString.push(String.fromCharCode(encodedASCII))
-      
-    } else {encodedString.push(String.fromCharCode(encodedASCII))
-      }
-  } else {encodedString.push(letter)}
-})
-  }
+  let encodedString;
+  encodedString = word.split("").map(letter => {
+    if (letter.match(/[a-z]/i)) {
+      let ascii = letter.toLowerCase().charCodeAt()
+      let encodedASCII = encode ? (ascii + shift) : (ascii - shift)
+      return runShift(encodedASCII)
+      // if it's not a letter, return as is
+    } else { return letter}
+  })
   return encodedString.join("")
 }
 
