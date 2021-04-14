@@ -46,6 +46,7 @@ function polybius(string, encode = true){
     for (i=0, j=1;i<splitString.length,j<splitString.length;i+=2,j+=2) {
       if (splitString[i] === " ") {
         splitEncoded.push(splitString[i])
+        // Decrement if it's a space, otherwise they'll run out of sync
         i-=1
         j-=1
       }

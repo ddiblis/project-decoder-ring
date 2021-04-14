@@ -1,41 +1,34 @@
+// Accepts string and 2 arrays of letters then encodes or decodes
+function run(string, array1, array2) {
+  return [...string].map((letter) => {
+      for (position in array2) {
+        lowerLetter = letter.toLowerCase()
+        if (lowerLetter === " ") {
+          return lowerLetter
+        }
+        if (lowerLetter === array1[position]) {
+          return array2[position]
+        }
+      }
+    })
+}
+
 function substitution(string, alphabet, encode = true) {
   if (!alphabet || alphabet.length !== 26 || /(.).*\1/.test(alphabet)) {
     return false
   }
 
-  const formattedString = []
+  let formattedString 
   const letters = "abcdefghijklmnopqrstuvwxyz".split("")
   const stringArr = string.split("")
   const alphabetArr = alphabet.split("")
 
   if (encode === true) {
-    stringArr.forEach(letter => {
-      for (pos in alphabetArr) {
-        lowerLetter = letter.toLowerCase()
-        if (lowerLetter === " ") {
-          formattedString.push(lowerLetter)
-          // since there are 26 letters if there is no break it'll add 26 spaces
-          break
-        }
-        if (lowerLetter === letters[pos]) {
-          formattedString.push(alphabetArr[pos])
-        }
-      }
-    })
+    formattedString = run(string, letters, alphabetArr)    
   }
   else {
-    stringArr.forEach(letter => {
-      for (pos in alphabetArr) {
-        lowerLetter = letter.toLowerCase()
-        if (lowerLetter === " ") {
-          formattedString.push(lowerLetter)
-          break
-        }
-        if (lowerLetter === alphabetArr[pos]) {
-          formattedString.push(letters[pos])
-        }
-      }
-    })
+    formattedString = run(string, alphabetArr, letters)
+   
   }
   return formattedString.join("")
 }
